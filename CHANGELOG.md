@@ -13,6 +13,9 @@
 - `py_tests/test_provisioning.py`：5 个正反用例（自造 CMS 描述文件，不需要 Apple 账号）
 - `scripts/xc/Get-DeviceInfo.ps1`：插上手机自动读 UDID/名称/iOS 版本；`release.ps1 -AutoUdid` 自动带 UDID 校验
 - `docs/15-SIGNING-CHAIN-AND-DEVICE.md`：签名链角色说明（私钥在本地、手机只验签、免费账号如何自动出证书）
+- `scripts/xc/Get-InstallPath.ps1`：读设备后判断走 TrollStore / 免费账号 / 付费账号，并打印命令
+- `scripts/xc/Register-RefreshTask.ps1`：免费签名 7 天续命（计划任务：重签 + 重装）
+- `docs/16-INSTALL-ON-DEVICE.md`：不上架的三条安装路径
 
 ### Changed
 
