@@ -39,7 +39,9 @@ $ver = $state.MARKETING_VERSION
 $build = $state.BUILD_NUMBER
 
 if (-not $SkipBuild) {
-    Step "1/4 构建 $Name $ver ($build)"
+    Step "1/4 构建 $Name $ver ($build)
+!! 本包未在真机上验证过。结构与签名已在 Windows 侧检查（verify-ipa / audit / sim-ios），
+!! 但从未在 iPhone 上启动。首次安装如遇问题，请按 docs/10 的排查顺序取证。"
     & (Join-Path $PSScriptRoot 'Build-IosAppNative.ps1') -Source $Source -Name $Name `
         -BundleId $BundleId -Version $ver -Build $build -Deterministic
     if ($LASTEXITCODE -ne 0) { throw '构建失败' }
@@ -100,6 +102,8 @@ $manifest = [ordered]@{
 
 $install = @"
 $Name $ver ($build)
+!! 本包未在真机上验证过。结构与签名已在 Windows 侧检查（verify-ipa / audit / sim-ios），
+!! 但从未在 iPhone 上启动。首次安装如遇问题，请按 docs/10 的排查顺序取证。
 ========================================
 文件    : $outName
 大小    : $([Math]::Round($size/1KB,1)) KB

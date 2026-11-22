@@ -65,6 +65,14 @@ Ordered by "value to others" ÷ "effort". Pick anything; open an issue first if 
 
 ## Reporting a device result (most useful contribution)
 
+> **As of the v1.0.0 tag, nothing from this repo has ever been launched on a physical device.**
+> Every claim is Windows-side: compile, sign, package, static audit, emulated execution.
+> One device report is worth more than a feature PR right now.
+
+> **As of the v1.0.0 tag, no build from this repo has ever been launched on a physical device.**
+> Every claim here is Windows-side: compile, sign, package, static audit, emulated execution.
+> A single device report is worth more than a feature PR.
+
 If you install the sample on a phone, please open an issue with:
 
 ```

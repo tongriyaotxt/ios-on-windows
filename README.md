@@ -9,6 +9,21 @@ App Store Connect over the REST API.
 It also ships the part nobody else ships: **a dyld + ARM64 emulator** that actually *executes* the
 binary on Windows so you can see the app boot before touching a phone.
 
+> ## ⚠️ Status: **never run on a physical iPhone**
+>
+> Everything in this repo is verified **on Windows only**:
+> compilation, linking, code signing, `.app`/`.ipa` packaging, static audit, and **emulated**
+> execution (dyld + Unicorn ARM64 + a fake UIKit).
+>
+> **No build from this repo has been launched on real hardware, signed with an Apple-issued
+> certificate, or uploaded to Apple.** Treat it as a working prototype with strong static and
+> emulated evidence — not as a shipped product.
+>
+> The two assumptions that still need a device are listed in [`docs/17`](docs/17-CRITIQUE.md) §1:
+> `UIApplicationMain` being called from a dylib constructor, and 4 KB signature pages.
+> If you run it, please report the result — [`CONTRIBUTING.md`](CONTRIBUTING.md) has the template.
+
+
 ```
    source (.m)                zig cc -target aarch64-ios            AppCore.dylib
       │                              │                                  │

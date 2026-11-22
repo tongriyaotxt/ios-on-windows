@@ -3,6 +3,16 @@
 [English](README.md) · [docs](docs/README.md) · [changelog](CHANGELOG.md)
 
 
+> ## ⚠️ 状态：**从未在真机上运行过**
+>
+> 本仓库的一切验证都发生在 **Windows 上**：编译、链接、代码签名、`.app`/`.ipa` 打包、静态审计、
+> 以及**模拟执行**（dyld + Unicorn ARM64 + 假 UIKit）。
+>
+> **没有任何一次构建在真实设备上启动过，也没有用 Apple 签发的证书签过名、没有向 Apple 上传过。**
+> 请把它当作「有充分静态与模拟证据的原型」，不是「已交付的产品」。
+>
+> 仍待真机确认的两个假设见 [`docs/17`](docs/17-CRITIQUE.md) §1：dylib constructor 里调
+> `UIApplicationMain`、以及 4KB 签名页大小。如果你跑通了，请按 [`CONTRIBUTING.md`](CONTRIBUTING.md) 的模板回报。
 > 目标约束（按最严格解释）：**全程不出现任何 Mac 设备**——不买、不租、不借、不连别人的 Mac。
 > 结论：**可以**。编译所需要的只有「macOS 这个软件」，不是「Mac 这台硬件」；把它跑成这台 PC 上的一个虚拟机即可。
 > 其余环节（写码、单测、签名、上传、分发、装机、看日志）Windows 原生就能做，且已在本机自测通过。
