@@ -13,7 +13,15 @@ import argparse
 import json
 import os
 import struct
+import sys
 import zlib
+
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 
 # iOS 需要的尺寸（文件名 -> 像素），沿用 Apple 的 Icon-<pt>[@2x|@3x] 命名
 SIZES = [

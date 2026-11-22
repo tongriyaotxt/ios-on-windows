@@ -15,8 +15,6 @@ on:
         description: Upload the IPA to App Store Connect
         type: boolean
         default: false
-  push:
-    tags: ["v*"]
 
 concurrency:
   group: ios-${{ github.ref }}

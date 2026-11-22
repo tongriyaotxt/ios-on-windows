@@ -13,6 +13,13 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zlib
 
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
+
 
 def cpio_newc(entries):
     out = bytearray()

@@ -44,6 +44,12 @@ from unicorn.arm64_const import (
     UC_ARM64_REG_X8,
 )
 
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 # ---------------------------------------------------------------- Mach-O
 LC_SEGMENT_64 = 0x19
 LC_SYMTAB = 0x2
