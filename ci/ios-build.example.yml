@@ -1,3 +1,5 @@
+# 示例模板：把本文件复制到 .github/workflows/ios.yml 才会运行。
+# 需要仓库 secrets：APPLE_TEAM_ID / ASC_KEY_ID / ASC_ISSUER_ID / ASC_API_KEY_P8 / ASC_APP_ID
 name: ios
 
 # 唯一需要 macOS 的地方：编译。签名、上传、分发、装机全在 Windows 侧脚本里。

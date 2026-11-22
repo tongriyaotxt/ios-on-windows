@@ -104,7 +104,7 @@ $profile = Invoke-RestMethod -Method Post -Uri 'https://api.appstoreconnect.appl
 
 | 场景 | 谁来签 | 命令 |
 |---|---|---|
-| 云端 CI 编译 | `xcodebuild -allowProvisioningUpdates` 自动取/建 | 见 `.github/workflows/ios.yml` |
+| 云端 CI 编译 | `xcodebuild -allowProvisioningUpdates` 自动取/建 | 见 `ci/ios-build.example.yml` |
 | CI 要「固定资产」 | `fastlane match`（Windows 可跑，纯 Ruby） | `fastlane certs_read` |
 | 本地给 IPA 重签（换证书/换设备） | `zsign`（C++，Windows 有构建） | `zsign -k dist.p12 -p pass -m App.mobileprovision -o out.ipa in.ipa` |
 | 纯离线、手工 | `rcodesign`（Rust，跨平台） | `rcodesign sign --p12-file dist.p12 --p12-password pass App.app` |

@@ -185,4 +185,4 @@ moves only the symbol tables; and none of them validate the result.
 
 MIT — see [LICENSE](LICENSE). This repo contains **no Apple SDK files**; `sdk/iPhoneOS-shim` is
 hand-written and lists only the symbol names the sample uses. `xip-extract.py` unpacks archives you
-supply; obtaining Apple's SDK is subject to Apple's terms.
+supply; obtaining Apple's SDK is subject to Apple's terms. Details in [NOTICE](NOTICE).

@@ -131,7 +131,7 @@ Windows 上的坑：
 
 ## 7. CI 里复用同一份脚本
 
-`.github/workflows/ios.yml` 的做法值得抄：macOS runner **自带 `pwsh`**，所以 Windows 和 CI 跑的是
+`ci/ios-build.example.yml` 的做法值得抄：macOS runner **自带 `pwsh`**，所以 Windows 和 CI 跑的是
 同一个 `asc-upload.ps1`：
 
 ```yaml

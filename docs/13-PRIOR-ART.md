@@ -70,4 +70,4 @@ datasize 与页哈希的不动点迭代 —— 这几处是自己摸出来的（
 | 生产级签名 / 公证 | `rcodesign` | 替换 `codesign_lite.py` 的 sign/verify 子命令 |
 | 重签第三方 ipa | `zsign` | `Build-IosAppNative.ps1` 之后加一步 |
 | 真正的 SwiftUI | `swift-sdk-generator` + `Get-IosSdk.ps1` 抽出的 SDK | `-Sdk` 参数已就绪 |
-| 云端构建兜底 | `ios-builder` 的思路 | `.github/workflows/ios.yml` 已实现同构流程 |
+| 云端构建兜底 | `ios-builder` 的思路 | `ci/ios-build.example.yml` 已实现同构流程 |

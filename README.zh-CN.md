@@ -45,7 +45,7 @@
 | ③ **零 macOS**（zig + 自造工具链） | 本机（zig 真编译 aarch64-ios） | ❌ | 1 小时 | 0 | 真 UIKit App + 图标 + Metal 着色器 + 签名 + 打包 + 校验；仅 SwiftUI 需抽 SDK |
 
 - 路线 ① 的完整步骤：[`docs/06-ZERO-MAC-VM.md`](docs/06-ZERO-MAC-VM.md)
-- 路线 ② 的配置：`.github/workflows/ios.yml`、`ci/codemagic.yaml`
+- 路线 ② 的配置：`ci/ios-build.example.yml`、`ci/codemagic.yaml`
 - 路线 ③ 的边界实测：[`docs/05-NO-MAC-AT-ALL.md`](docs/05-NO-MAC-AT-ALL.md)
 - 路线 ④ 的实现与实测（Mach-O / 代码签名 / .ipa 全在 Windows 造）：[`docs/07-NO-MACOS-AT-ALL.md`](docs/07-NO-MACOS-AT-ALL.md)
 - 路线 ④ 的突破（zig 真编译 UIKit + dylib 拆分 + LC 注入 + 同类项目调研）：[`docs/08-NATIVE-TOOLCHAIN.md`](docs/08-NATIVE-TOOLCHAIN.md)
@@ -121,7 +121,7 @@ sdk/iPhoneOS-shim/            手写 iOS SDK 替身：UIKit.h + 三个 .tbd 符�
 scripts/xc/Build-IosApp.ps1     零 macOS 打包（machogen 路径）
 scripts/xc/Build-IosAppNative.ps1  zig 真编译 UIKit dylib → 双层签名 → 嵌套 .ipa
   test-upload.ps1             端到端上传自测
-.github/workflows/ios.yml     macOS 编译 + 复用 scripts/asc-upload.ps1
+ci/ios-build.example.yml     macOS 编译 + 复用 scripts/asc-upload.ps1
 ci/codemagic.yaml             备选 CI
 fastlane/Fastfile             签名资产管理（Windows 可跑的那几个 lane）
 VERSION                       MARKETING_VERSION / BUILD_NUMBER

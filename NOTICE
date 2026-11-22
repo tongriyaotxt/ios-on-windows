@@ -1,0 +1,19 @@
+NOTICE
+======
+
+This repository contains **no Apple SDK files**.
+
+* `sdk/iPhoneOS-shim/` is hand-written: a small `UIKit.h` / `Metal.h` declaring only the
+  functions this sample calls, plus `.tbd` linker stubs listing only the symbol names used.
+  No headers, libraries, or binaries from Apple are redistributed here.
+
+* `tools/xip-extract.py` only unpacks archives that **you** supply. Obtaining and using Apple's
+  SDK (for example from an `Xcode.xip` you download with your own Apple ID) is subject to
+  Apple's own license terms, not to this repository's MIT license.
+
+* Apple, Xcode, iPhone, iOS, App Store, TestFlight and related marks are trademarks of
+  Apple Inc. This project is not affiliated with or endorsed by Apple.
+
+* The `TrollStore` installation path described in `docs/16` relies on a third-party tool that
+  exploits a code-signing bug on older iOS versions. It is documented as an option, not bundled,
+  and what you do with your own device is your responsibility.
