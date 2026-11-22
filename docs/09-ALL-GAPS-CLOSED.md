@@ -60,15 +60,15 @@ cpio      →  '070701' newc，逐条 {name, mode, data}
 
 ```powershell
 # 在浏览器里用 Apple ID 下一次 Xcode.xip（7–10 GB），然后：
-.\scripts\xc\Get-IosSdk.ps1 -Xip D:\dl\Xcode_16.xip -OutDir F:\sdks
+.\scripts\xc\Get-IosSdk.ps1 -Xip D:\dl\Xcode_16.xip -OutDir D:\sdks
 # 体检 + 打印下一步
-.\scripts\xc\Get-IosSdk.ps1 -SdkDir F:\sdks\...\iPhoneOS.sdk
+.\scripts\xc\Get-IosSdk.ps1 -SdkDir D:\sdks\...\iPhoneOS.sdk
 ```
 
 拿到 SDK 后构建脚本可以直接吃：
 
 ```powershell
-.\scripts\xc\Build-IosAppNative.ps1 -Source .\samples\UIKitApp\AppCoreUI.m -Sdk F:\sdks\...\iPhoneOS.sdk
+.\scripts\xc\Build-IosAppNative.ps1 -Source .\samples\UIKitApp\AppCoreUI.m -Sdk D:\sdks\...\iPhoneOS.sdk
 ```
 
 此时不再需要 `sdk\iPhoneOS-shim`（真头文件 + 真 `.tbd`），并且 SDK 里带

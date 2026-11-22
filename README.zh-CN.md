@@ -48,8 +48,8 @@
 ```powershell
 # ---- 一次性准备 ----
 winget install SoftwareFreedomConservancy.QEMU 7zip.7zip
-.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk F:\vm\OpenCore.qcow2 -DryRun   # 先看计划
-.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk F:\vm\OpenCore.qcow2 -Launch   # 装 macOS（见 docs/06）
+.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk D:\vm\OpenCore.qcow2 -DryRun   # 先看计划
+.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk D:\vm\OpenCore.qcow2 -Launch   # 装 macOS（见 docs/06）
 
 # ---- 每次发版 ----
 .\scripts\ios.ps1 bump                          # build 号 +1，同步 App\project.yml

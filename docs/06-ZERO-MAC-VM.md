@@ -44,7 +44,7 @@ winget install SoftwareFreedomConservancy.QEMU
 winget install 7zip.7zip
 
 # 体检 + 建盘（-DryRun 只打印计划，先看清楚）
-.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk F:\vm\OpenCore.qcow2 -DryRun
+.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk D:\vm\OpenCore.qcow2 -DryRun
 ```
 
 ### 1.1 要准备的两个文件
@@ -67,7 +67,7 @@ QEMU 的用户态网络 NAT 直接可用，不需要额外配网。
 ## 2. 装 macOS 客户机（一次性，约 1–3 小时）
 
 ```powershell
-.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk F:\vm\OpenCore.qcow2 -Launch -RamMB 16384 -Cpu 8 -DiskGB 96
+.\scripts\vm\New-MacVm.ps1 -OpenCoreDisk D:\vm\OpenCore.qcow2 -Launch -RamMB 16384 -Cpu 8 -DiskGB 96
 ```
 
 客户机里的步骤：
@@ -99,7 +99,7 @@ QEMU 的用户态网络 NAT 直接可用，不需要额外配网。
 # Windows 侧
 7z a -ttar Xcode16.tar Xcode16\Xcode.app
 # 传：客户机里 python3 -m http.server 8001，Windows 侧不需要——反过来，Windows 起 http 让客户机来取
-python -m http.server 9000 --directory F:\vm
+python -m http.server 9000 --directory D:\vm
 # 客户机里： curl -O http://10.0.2.2:9000/Xcode16.tar && tar xf Xcode16.tar -C /Applications
 ```
 
