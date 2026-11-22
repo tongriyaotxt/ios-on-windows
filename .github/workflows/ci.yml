@@ -1,7 +1,10 @@
 name: ci
 
-# 每次提交都验：静态检查 → 单测 → 全链路自测（两个平台）。
+# 每次提交都验：静态检查 → 单测（两平台）→ 全链路自测（Windows）。
 # 不需要 Apple 账号、不需要 macOS、不需要真机。
+#
+# 为什么全链路只在 Windows 跑：scripts/ 里的编排是 PowerShell + Windows 路径 +
+# `powershell -File` 子进程调用；Python 工具本身跨平台，ubuntu 上由 lint+unit 覆盖。
 
 on:
   push:
@@ -55,13 +58,9 @@ jobs:
           Write-Host "all scripts parse"
 
   pipeline:
-    name: 全链路自测（${{ matrix.os }}）
-    runs-on: ${{ matrix.os }}
+    name: 全链路自测（Windows）
+    runs-on: windows-latest
     needs: lint-and-unit
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -74,8 +73,11 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: 确认 openssl（JWT 签名用）
-        shell: bash
-        run: openssl version || (echo "no openssl" && exit 1)
+        shell: pwsh
+        run: |
+          $ssl = Get-Command openssl -ErrorAction SilentlyContinue
+          if (-not $ssl) { throw 'no openssl on runner' }
+          openssl version
 
       - name: JWT 自检
         shell: pwsh
@@ -93,7 +95,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ipa-${{ matrix.os }}
+          name: ipa-windows
           path: build/xc/*.ipa
           if-no-files-found: warn
           retention-days: 7
