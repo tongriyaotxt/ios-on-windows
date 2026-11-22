@@ -19,6 +19,7 @@
 | 12 | [CONVENTIONS.md](12-CONVENTIONS.md) | 工程约定：退出码、命名、编码、改动流程、已知约束 |
 | 13 | [PRIOR-ART.md](13-PRIOR-ART.md) | 同类项目调研：osxcross / Theos / iosc / zsign / rcodesign 等 |
 | 14 | [RELEASE-PATH.md](14-RELEASE-PATH.md) | 剩下那一步：描述文件校验 + 一键发布（含等价凭证实测） |
+| 15 | [SIGNING-CHAIN-AND-DEVICE.md](15-SIGNING-CHAIN-AND-DEVICE.md) | 私钥从哪来、手机能给什么（UDID）、免费账号怎么自动出证书 |
 
 ## 按问题找文档
 

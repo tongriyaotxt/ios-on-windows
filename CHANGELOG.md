@@ -11,6 +11,8 @@
 - `tools/check-provisioning.py`：描述文件 ↔ 证书 ↔ bundle id ↔ entitlements ↔ UDID 五方一致性校验，支持 `--emit-entitlements`
 - `scripts/release.ps1`：一条命令从源码到 TestFlight（校验 → 构建 → 审计 → 上传），`-DryRun` 无需凭证
 - `py_tests/test_provisioning.py`：5 个正反用例（自造 CMS 描述文件，不需要 Apple 账号）
+- `scripts/xc/Get-DeviceInfo.ps1`：插上手机自动读 UDID/名称/iOS 版本；`release.ps1 -AutoUdid` 自动带 UDID 校验
+- `docs/15-SIGNING-CHAIN-AND-DEVICE.md`：签名链角色说明（私钥在本地、手机只验签、免费账号如何自动出证书）
 
 ### Changed
 

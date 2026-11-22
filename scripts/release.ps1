@@ -29,6 +29,7 @@ param(
     [string]$Version = $null,
     [string]$Build = $null,
     [string]$Udid,
+    [switch]$AutoUdid,
     [switch]$Upload,
     [switch]$DryRun
 )
@@ -54,6 +55,13 @@ if (-not $Version -or -not $Build) {
     if (-not $Build) { $Build = $state.BUILD_NUMBER }
 }
 if (-not $BundleId) { $BundleId = 'com.tongriyaotxt.appcore' }
+
+if ($AutoUdid -and -not $Udid) {
+    Write-Host '==> 自动读取已连接设备的 UDID' -ForegroundColor Cyan
+    $ids = & (Join-Path $PSScriptRoot 'xc\Get-DeviceInfo.ps1') -UdidOnly 2>$null
+    if ($ids) { $Udid = @($ids)[0].Trim(); Write-Host "    UDID = $Udid" -ForegroundColor Green }
+    else { Write-Host '    没找到设备，继续走不依赖 UDID 的检查（App Store 分发不需要）' -ForegroundColor Yellow }
+}
 
 Step "1/5 描述文件校验（bundle=$BundleId team=$TeamId）"
 if ($DryRun) {
