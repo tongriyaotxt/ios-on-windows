@@ -1,0 +1,67 @@
+# Alternative to GitHub Actions: Codemagic 也提供 macOS 机器，且对个人账号有免费额度。
+# 触发：git push（工作流匹配分支）或 codemagic.yaml 里配的 tag。
+workflows:
+  ios-release:
+    name: AppCore iOS release
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    integrations:
+      app_store_connect: codemagic_asc_key   # 在 Codemagic 后台绑定 .p8
+    environment:
+      groups:
+        - appcore_secrets                    # ASC_KEY_ID / ASC_ISSUER_ID / TEAM_ID
+      vars:
+        BUNDLE_ID: com.tongriyaotxt.appcore
+      xcode: latest
+      swift: latest
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+    scripts:
+      - name: Install tooling
+        script: |
+          brew install xcodegen xcbeautify
+          set -e
+          xcodegen generate --spec App/project.yml
+
+      - name: Unit tests (same sources as Windows)
+        script: |
+          swift test --parallel
+
+      - name: Set build number
+        script: |
+          cd App
+          BUILD_NUMBER=$(($BUILD_NUMBER + 1))
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $CM_ENV
+          agvtool new-version -all $BUILD_NUMBER || true
+
+      - name: Build ipa
+        script: |
+          set -e
+          cd App
+          xcodebuild -project AppCore.xcodeproj -scheme AppCore \
+            -configuration Release -destination "generic/platform=iOS" \
+            -archivePath $CM_BUILD_DIR/AppCore.xcarchive archive | xcbeautify
+          xcodebuild -exportArchive \
+            -archivePath $CM_BUILD_DIR/AppCore.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath $CM_BUILD_DIR/export \
+            -allowProvisioningUpdates
+
+      - name: Upload to TestFlight via our own REST script
+        script: |
+          set -e
+          IPA=$(ls $CM_BUILD_DIR/export/*.ipa | head -1)
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "$ASC_API_KEY_P8" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          pwsh -NoProfile -File scripts/asc-upload.ps1 \
+            -Ipa "$IPA" -BundleVersion "$BUILD_NUMBER" \
+            -KeyPath ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8 \
+            -SkipPoll
+
+    artifacts:
+      - $CM_BUILD_DIR/export/*.ipa
+      - $CM_BUILD_DIR/AppCore.xcarchive/dSYMs/*.dSYM

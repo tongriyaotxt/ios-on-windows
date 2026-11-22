@@ -1,0 +1,28 @@
+# ---- 凭证：永远不要提交 ----
+.env
+secrets/
+*.p8
+*.p12
+*.mobileprovision
+*.cer
+*.pem
+*.key
+
+# ---- 产物 ----
+build/
+DerivedData/
+*.ipa
+*.xcarchive
+*.dSYM/
+App/AppCore.xcodeproj/
+App/Info.plist
+
+# ---- 工具噪音 ----
+.swiftpm/
+.build/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+cad_mcp.log

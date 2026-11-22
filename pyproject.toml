@@ -1,0 +1,21 @@
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+exclude = ["build", "__pycache__", ".git"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+    "E501",   # 行长由 line-length 控制，注释里的中文会超
+    "B008",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tools/machogen.py" = ["E741"]
+
+[tool.pytest.ini_options]
+testpaths = ["py_tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: 需要编译/模拟的用例（默认也跑，CI 里可 -m 'not slow' 跳过）",
+]

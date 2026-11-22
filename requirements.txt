@@ -1,0 +1,4 @@
+# 运行时依赖（钉死版本 —— zig 的 iOS 目标行为与 unicorn 的 API 都可能随升级变化）
+ziglang==0.17.1
+unicorn==2.1.4
+cryptography==48.0.1

@@ -1,0 +1,62 @@
+# fastlane 在 Windows 上是「部分可用」的，这正是它值得写清楚的地方：
+#
+#   能在 Windows 跑（纯 Ruby + HTTPS，不碰 Xcode）
+#     - match     证书/描述文件管理（生成、加密、存 git）
+#     - spaceship 直连 App Store Connect 的 Ruby 客户端
+#     - pilot/deliver 的元数据、截图、提审（上传二进制仍走 iTMSTransporter）
+#     - sigh      生成 provisioning profile
+#
+#   只能在 macOS 跑
+#     - gym       xcodebuild archive
+#     - scan      xcodebuild test
+#     - 任何 upload 动作如果底层落到 xcrun altool
+#
+# 所以本仓库的定位：签名资产用 fastlane 管（Windows 可跑），编译交给云端，
+# 二进制上传用自己的 REST 脚本 scripts/asc-upload.ps1（Windows / CI 同一份代码）。
+
+default_platform(:ios)
+
+platform :ios do
+  desc 'Windows 可跑：读取/生成签名资产并写回本地 secrets 目录'
+  lane :certs_read do
+    match(
+      type: 'appstore',
+      readonly: true,
+      git_url: ENV['MATCH_GIT_URL'],
+      app_identifier: [ENV.fetch('BUNDLE_ID', 'com.tongriyaotxt.appcore')],
+      username: ENV['APPLE_ID']
+    )
+  end
+
+  desc 'Windows 可跑：重新生成 appstore 证书与 profile（需要 Apple ID + app-specific password）'
+  lane :certs_regen do
+    match(
+      type: 'appstore',
+      force_for_new_devices: true,
+      git_url: ENV['MATCH_GIT_URL'],
+      app_identifier: [ENV.fetch('BUNDLE_ID', 'com.tongriyaotxt.appcore')],
+      username: ENV['APPLE_ID']
+    )
+  end
+
+  desc '只在 macOS / CI 跑：编译 + 导出 IPA'
+  lane :build do
+    gym(
+      project: './App/AppCore.xcodeproj',
+      scheme: 'AppCore',
+      configuration: 'Release',
+      export_method: 'app-store-connect',
+      output_directory: './build',
+      export_options: { manageAppVersionAndBuildNumber: false }
+    )
+  end
+
+  desc '提审/元数据（二进制请先跑 scripts/asc-upload.ps1）'
+  lane :metadata do
+    deliver(
+      skip_binary_upload: true,
+      skip_screenshots: false,
+      api_key_path: ENV['ASC_KEY_PATH']
+    )
+  end
+end

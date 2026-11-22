@@ -1,0 +1,108 @@
+name: ios
+
+# 唯一需要 macOS 的地方：编译。签名、上传、分发、装机全在 Windows 侧脚本里。
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: CFBundleVersion (leave empty to use the run number)
+        required: false
+      marketing_version:
+        description: CFBundleShortVersionString
+        required: false
+        default: "1.0.0"
+      upload:
+        description: Upload the IPA to App Store Connect
+        type: boolean
+        default: false
+  push:
+    tags: ["v*"]
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      BUILD_NUMBER: ${{ inputs.build_number || github.run_number }}
+      MARKETING_VERSION: ${{ inputs.marketing_version || '1.0.0' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          ls /Applications | grep '^Xcode' || true
+          sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate project
+        working-directory: App
+        run: |
+          xcodegen generate --spec project.yml
+          ls -la
+
+      - name: Run Swift core tests (same code you test on Windows)
+        run: |
+          swift --version
+          swift test --parallel
+
+      - name: Archive
+        working-directory: App
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project AppCore.xcodeproj \
+            -scheme AppCore \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$RUNNER_TEMP/AppCore.xcarchive" \
+            -allowProvisioningUpdates \
+            MARKETING_VERSION="$MARKETING_VERSION" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            archive | xcbeautify || xcodebuild -project AppCore.xcodeproj -scheme AppCore -configuration Release -destination "generic/platform=iOS" -archivePath "$RUNNER_TEMP/AppCore.xcarchive" -allowProvisioningUpdates MARKETING_VERSION="$MARKETING_VERSION" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" archive
+
+      - name: Export IPA
+        working-directory: App
+        run: |
+          set -euo pipefail
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/AppCore.xcarchive" \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath "$RUNNER_TEMP/export" \
+            -allowProvisioningUpdates
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AppCore-${{ env.BUILD_NUMBER }}
+          path: ${{ runner.temp }}/export/*.ipa
+          if-no-files-found: error
+          retention-days: 14
+
+      # 注意这里：不用 fastlane、不用 altool，直接跑仓库里那份 PowerShell 上传脚本。
+      # macOS runner 自带 pwsh，所以 Windows 和 CI 用的是同一段上传代码。
+      - name: Upload to App Store Connect (REST buildUploads)
+        if: ${{ inputs.upload }}
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s' "${{ secrets.ASC_API_KEY_P8 }}" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          IPA=$(ls "$RUNNER_TEMP"/export/*.ipa | head -1)
+          pwsh -NoProfile -File scripts/asc-upload.ps1 \
+            -Ipa "$IPA" \
+            -BundleVersion "$BUILD_NUMBER" \
+            -KeyPath ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8 \
+            -AppId "$ASC_APP_ID" \
+            -SkipPoll

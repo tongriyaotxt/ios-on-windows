@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Xcode 16 / 2026 的导出参数。要点：
+    - method 用 app-store-connect（老的 "app-store" 已废弃但仍被接受）
+    - destination=export 先落 IPA 到磁盘，上传交给我们自己的 REST 脚本（可审计、可在 Windows 跑）
+    - manageAppVersionAndBuildNumber=false：build 号由 VERSION 文件 / CI 注入，不让 Xcode 乱改
+-->
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store-connect</string>
+    <key>destination</key>
+    <string>export</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>teamID</key>
+    <string>$(TEAM_ID)</string>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>manageAppVersionAndBuildNumber</key>
+    <false/>
+</dict>
+</plist>

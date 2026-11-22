@@ -1,0 +1,44 @@
+﻿# XcodeGen 宸ョ▼鎻忚堪 鈥斺€?鍙弿杩?SwiftUI 澹筹紱鏍稿績閫昏緫鍦ㄤ粨搴撴牴鐨?SwiftPM 鍖呴噷銆?# 鐢熸垚锛歺codegen generate --spec project.yml
+name: AppCore
+options:
+  bundleIdPrefix: com.tongriyaotxt
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: "$(TEAM_ID)"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+packages:
+  AppCore:
+    path: ..            # 寮曠敤浠撳簱鏍圭洰褰曠殑 Package.swift锛學indows 涓婂崟娴嬬殑灏辨槸瀹?
+targets:
+  AppCore:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    dependencies:
+      - package: AppCore
+        product: AppCore
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: AppCore
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "2"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tongriyaotxt.appcore
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTS_MACCATALYST: NO
+        GENERATE_INFOPLIST_FILE: NO
+

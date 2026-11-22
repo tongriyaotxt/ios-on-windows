@@ -1,0 +1,95 @@
+name: ci
+
+# 每次提交都验：静态检查 → 单测 → 全链路自测（两个平台）。
+# 不需要 Apple 账号、不需要 macOS、不需要真机。
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-unit:
+    name: lint + unit (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: ruff
+        run: python -m ruff check tools py_tests
+
+      - name: pytest
+        run: python -m pytest py_tests -q
+
+      - name: PowerShell 语法解析
+        shell: pwsh
+        run: |
+          $bad = 0
+          Get-ChildItem -Recurse -Filter *.ps1 | Where-Object { $_.FullName -notmatch '\\build\\' } | ForEach-Object {
+            $err = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$err)
+            if ($err) { $bad++; Write-Host "FAIL $($_.Name): $($err[0].Message)" }
+          }
+          if ($bad -gt 0) { exit 1 }
+          Write-Host "all scripts parse"
+
+  pipeline:
+    name: 全链路自测（${{ matrix.os }}）
+    runs-on: ${{ matrix.os }}
+    needs: lint-and-unit
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: python -m pip install -r requirements.txt
+
+      - name: 确认 openssl（JWT 签名用）
+        shell: bash
+        run: openssl version || (echo "no openssl" && exit 1)
+
+      - name: JWT 自检
+        shell: pwsh
+        run: ./scripts/selftest-jwt.ps1
+
+      - name: 上传 e2e（本地 mock）
+        shell: pwsh
+        run: ./tools/test-upload.ps1
+
+      - name: 10 步全链路（编译→签名→打包→校验→审计→模拟执行）
+        shell: pwsh
+        run: ./tools/test-nomac-build.ps1
+
+      - name: 产物
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ipa-${{ matrix.os }}
+          path: build/xc/*.ipa
+          if-no-files-found: warn
+          retention-days: 7
