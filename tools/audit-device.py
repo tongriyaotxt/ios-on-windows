@@ -36,6 +36,7 @@ CSSLOT_REQUIREMENTS = 2
 CSSLOT_ENTITLEMENTS = 5
 
 findings = []
+TARGET = "device"
 
 
 def add(sev, code, msg, fix=""):
@@ -193,6 +194,8 @@ def audit_signature(blob, m, label, plist_bytes=None, profile_ent=None, bundle_m
 
     if 0x10000 in slots:
         add("INFO", "sig.cms", f"{label}: 带 CMS（证书链签名）")
+    elif TARGET == "trollstore":
+        add("INFO", "sig.adhoc", f"{label}: ad-hoc 签名 —— TrollStore 接受（它会自行处理签名）")
     else:
         add("HIGH", "sig.adhoc",
             f"{label}: 只有 ad-hoc 签名 —— 真机（非越狱）不会接受任何 ad-hoc 签名的 App",
@@ -210,7 +213,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("ipa")
     ap.add_argument("--profile", default=None, help="embedded.mobileprovision 或 entitlements plist")
+    ap.add_argument("--target", default="device", choices=["device", "trollstore", "appstore"],
+                    help="device=普通真机(默认) trollstore=TrollStore appstore=上架")
     args = ap.parse_args()
+    global TARGET
+    TARGET = args.target
 
     z = zipfile.ZipFile(args.ipa)
     names = z.namelist()
@@ -231,9 +238,14 @@ def main():
                 "bundle 步骤补上" if key != "CFBundleIcons" else "attach-icons.py")
 
     if "embedded.mobileprovision" not in " ".join(names):
-        add("FATAL", "bundle.profile",
-            "bundle 里没有 embedded.mobileprovision —— 真机安装（development/ad-hoc）会直接失败",
-            "把描述文件放到 .app 根目录（Build-IosAppNative -ProvisioningProfile）")
+        if TARGET == "trollstore":
+            add("INFO", "bundle.profile", "没有 embedded.mobileprovision —— TrollStore 不需要它")
+        elif TARGET == "appstore":
+            add("INFO", "bundle.profile", "没有 embedded.mobileprovision —— App Store 分发本来就不带")
+        else:
+            add("FATAL", "bundle.profile",
+                "bundle 里没有 embedded.mobileprovision —— 真机安装（development/ad-hoc）会直接失败",
+                "把描述文件放到 .app 根目录（Build-IosAppNative -ProvisioningProfile）")
 
     # ---- 可执行体
     exe_blob = z.read(f"Payload/{app}/{exe}")

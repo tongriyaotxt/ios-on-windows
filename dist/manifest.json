@@ -1,0 +1,30 @@
+﻿{
+    "name":  "AppCore",
+    "bundleId":  "com.tongriyaotxt.appcore",
+    "version":  "1.0.0",
+    "build":  "2",
+    "file":  "AppCore-1.0.0-2.ipa",
+    "sizeBytes":  15882,
+    "sha256":  "A4EDBF5E0985974E600280FE95690FFEB73DBF599B28EB9F02E2D1D224410D40",
+    "minOS":  "17.0",
+    "arch":  "arm64",
+    "signing":  "ad-hoc（TrollStore 可直接用；免费/付费账号可在此基础上重签）",
+    "capabilities":  [
+                         "UIKit 界面",
+                         "运行时编译 Metal 着色器",
+                         "13 个尺寸图标",
+                         "嵌套 Frameworks/AppCore.dylib"
+                     ],
+    "verifiedBy":  [
+                       "verify-ipa.py",
+                       "audit-device.py --target trollstore",
+                       "sim-ios.py"
+                   ],
+    "auditTarget":  "trollstore（ad-hoc + 无描述文件属正常）",
+    "createdAt":  "2026-11-22T15:50:19.8615382+08:00",
+    "install":  [
+                    "TrollStore（iOS ≤ 17.0）：传 ipa 到手机 → 用 TrollStore 打开",
+                    "免费 Apple ID：release.ps1 重签 → ios.ps1 install",
+                    "付费账号：release.ps1 -Upload 走 ASC（可选）"
+                ]
+}

@@ -1,0 +1,30 @@
+﻿AppCore 1.0.0 (2)
+========================================
+文件    : AppCore-1.0.0-2.ipa
+大小    : 15.5 KB
+SHA256  : A4EDBF5E0985974E600280FE95690FFEB73DBF599B28EB9F02E2D1D224410D40
+Bundle  : com.tongriyaotxt.appcore
+最低系统: iOS 17.0 (arm64)
+
+三条安装路径（选一条）
+----------------------------------------
+A. TrollStore（iOS ≤ 17.0，不需要 Apple 账号，永久）
+   1) 手机上装 TrollStore（TrollInstallerX，一次性）
+   2) 把 AppCore-1.0.0-2.ipa 传到手机（AirDrop / 文件 App / pymobiledevice3 apps install）
+   3) 用 TrollStore 打开该 ipa → Install
+
+B. 免费 Apple ID（7 天，可用计划任务自动续）
+   1) Sideloadly 签一次，导出 .p12 与 .mobileprovision
+   2) .\scripts\release.ps1 -Profile X.mobileprovision -P12 X.p12 -P12Password *** -AutoUdid
+   3) .\scripts\ios.ps1 install -Ipa .\build\xc\AppCore-native.ipa
+   4) 续命：.\scripts\xc\Register-RefreshTask.ps1 -Profile ... -P12 ... -P12Password ***
+
+C. 付费账号（1 年）
+   .\scripts\release.ps1 ... -Upload
+
+出问题时
+----------------------------------------
+1) 装不上        -> .\scripts\xc\Get-InstallPath.ps1
+2) 装上了打不开  -> pymobiledevice3 syslog live --process AppCore
+3) 白屏/黑屏     -> docs/11（模拟器能复现控制流问题）
+4) 证书/描述文件 -> python tools\check-provisioning.py --profile ... --bundle-id com.tongriyaotxt.appcore --ipa ...
