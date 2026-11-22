@@ -11,7 +11,7 @@ workflows:
       groups:
         - appcore_secrets                    # ASC_KEY_ID / ASC_ISSUER_ID / TEAM_ID
       vars:
-        BUNDLE_ID: com.tongriyaotxt.appcore
+        BUNDLE_ID: com.example.appcore
       xcode: latest
       swift: latest
     triggering:

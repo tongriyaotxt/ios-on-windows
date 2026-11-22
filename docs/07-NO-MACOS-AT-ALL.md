@@ -50,7 +50,7 @@ superblob: 1453 bytes, 3 entries
   slot 0x0000 @ 36          <- CodeDirectory
   slot 0x0005 @ 353         <- Entitlements
   slot 0x10000 @ 675        <- CMS
-CodeDirectory v0x20400 len=317 flags=0x0 ident=com.tongriyaotxt.helloios
+CodeDirectory v0x20400 len=317 flags=0x0 ident=com.example.helloios
   hashType=2 hashSize=32 pageSize=2^12 nCode=1 nSpecial=5 codeLimit=464
 pages: 1 checked, all match
 cms: present

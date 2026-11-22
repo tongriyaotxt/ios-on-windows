@@ -11,12 +11,12 @@
     前置：IPA 必须用「带目标设备 UDID 的 ad-hoc profile」或 enterprise 证书签名，
     否则装上去会提示 "无法安装"。TestFlight 分发的包不适用此流程。
 .EXAMPLE
-    .\make-ota-manifest.ps1 -Ipa .\build\AppCore.ipa -BaseUrl https://192.168.2.2:8443
+    .\make-ota-manifest.ps1 -Ipa .\build\AppCore.ipa -BaseUrl https://192.168.1.10:8443
 #>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$Ipa,
-    [Parameter(Mandatory)][string]$BaseUrl,          # 例：https://192.168.2.2:8443（必须 https）
+    [Parameter(Mandatory)][string]$BaseUrl,          # 例：https://192.168.1.10:8443（必须 https）
     [string]$OutDir = '.\build\ota',
     [string]$Title
 )

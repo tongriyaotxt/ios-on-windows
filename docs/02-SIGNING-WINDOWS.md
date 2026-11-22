@@ -64,7 +64,7 @@ $cert.data.attributes.certificateContent | Set-Content "$dir\dist.cer.b64"
 
 ```powershell
 # 3.1 找到（或建）bundle id
-$ids = Invoke-RestMethod -Uri 'https://api.appstoreconnect.apple.com/v1/bundleIds?filter[identifier]=com.tongriyaotxt.appcore' `
+$ids = Invoke-RestMethod -Uri 'https://api.appstoreconnect.apple.com/v1/bundleIds?filter[identifier]=com.example.appcore' `
          -Headers @{ Authorization = "Bearer $token" }
 $bundleIdResId = $ids.data[0].id
 
@@ -95,7 +95,7 @@ $profile = Invoke-RestMethod -Method Post -Uri 'https://api.appstoreconnect.appl
 ```powershell
 # 用 openssl 解 profile 里的 plist，确认 UDID / 证书 / 过期时间
 & $ssl smime -verify -noverify -inform der -in .\secrets\AppCore.mobileprovision 2>$null |
-  Select-String -Pattern 'UDID|ExpirationDate|com.tongriyaotxt'
+  Select-String -Pattern 'UDID|ExpirationDate|com.example'
 ```
 
 ---

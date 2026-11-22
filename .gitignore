@@ -28,4 +28,6 @@ Thumbs.db
 cad_mcp.log
 
 # dist/ 是交付产物，要入库
-!dist/*.ipa
+
+# 交付产物放 GitHub Releases，不进仓库
+dist/

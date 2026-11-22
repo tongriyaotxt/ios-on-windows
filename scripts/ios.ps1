@@ -143,7 +143,7 @@ switch ($Command) {
 
     'nomac' {
         $v = Get-VersionState
-        $bid = 'com.tongriyaotxt.helloios'
+        $bid = 'com.example.helloios'
         if ($env:BUNDLE_ID) { $bid = $env:BUNDLE_ID }
         $xa = @{
             BundleId = $bid

@@ -4,7 +4,7 @@
 
 | # | 文档 | 一句话 |
 |---|---|---|
-| — | [ENV-REPORT.md](ENV-REPORT.md) | 本机基线体检（硬件、已装工具、缺口、网络实测） |
+| — | *(machine baseline report not included — it is host-specific)* | 本机基线体检（硬件、已装工具、缺口、网络实测） |
 | 00 | [ARCHITECTURE.md](00-ARCHITECTURE.md) | 三条路线的取舍：云端 macOS / 租 Mac / 本机虚拟机 |
 | 02 | [SIGNING-WINDOWS.md](02-SIGNING-WINDOWS.md) | 不打开 Xcode 造证书与描述文件（CSR→ASC→p12） |
 | 03 | [UPLOAD.md](03-UPLOAD.md) | REST `buildUploads` 四步上传，从 Windows 直传 |

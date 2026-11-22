@@ -72,7 +72,7 @@ def str_cmd(cmd_id, path, extra=0):
     return struct.pack("<III", cmd_id, 12 + len(raw), 12 if cmd_id == LC_LOAD_DYLINKER else extra) + raw
 
 
-def build(identifier="com.tongriyaotxt.helloios", sig_size=0, dylibs=None, minos=(17, 0),
+def build(identifier="com.example.helloios", sig_size=0, dylibs=None, minos=(17, 0),
           deterministic=False):
     if dylibs is None:
         dylibs = ["/usr/lib/libSystem.B.dylib"]
@@ -136,7 +136,7 @@ def build(identifier="com.tongriyaotxt.helloios", sig_size=0, dylibs=None, minos
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--output", required=True)
-    ap.add_argument("--identifier", default="com.tongriyaotxt.helloios")
+    ap.add_argument("--identifier", default="com.example.helloios")
     ap.add_argument("--signature-size", type=int, default=0)
     ap.add_argument("--load-dylib", action="append", default=None)
     ap.add_argument("--minos", default="17.0")

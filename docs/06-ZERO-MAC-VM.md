@@ -54,7 +54,7 @@ winget install 7zip.7zip
 | `OpenCore.qcow2` | OSX-KVM 发布物里的 `OpenCore.qcow2` | 引导器。GitHub 直连不通时用镜像/代理先下到本地，再传路径 |
 | `edk2-x86_64-code.fd` | QEMU 安装目录的 `share\` | UEFI 固件，脚本会自动找 |
 
-> 网络实测（见 `docs/ENV-REPORT.md`）：`github.com` 12 s 超时、`objects.githubusercontent.com` 可达、
+> 网络实测（见 `docs/12-CONVENTIONS.md`）：`github.com` 12 s 超时、`objects.githubusercontent.com` 可达、
 > `download.swift.org` 1.27 s。所以「先下到本地再喂给脚本」是这套流程的默认姿势，不要指望脚本替你翻墙。
 
 ### 1.2 macOS 安装介质
@@ -142,7 +142,7 @@ bash scripts/vm/macos-build.sh ~/src/ios-app 42
 .\scripts\asc-upload.ps1 -Ipa .\build\AppCore.ipa -BundleVersion 42
 
 # 不经过 TestFlight，直接装（ad-hoc 签名 + HTTPS，docs/04）
-.\scripts\ios.ps1 ota -Ipa .\build\AppCore.ipa -Addr 192.168.2.2 -Port 8443
+.\scripts\ios.ps1 ota -Ipa .\build\AppCore.ipa -Addr 192.168.1.10 -Port 8443
 
 # USB 直装（需要 Apple 设备驱动 + pymobiledevice3）
 .\scripts\ios.ps1 install -Ipa .\build\AppCore.ipa

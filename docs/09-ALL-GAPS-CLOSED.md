@@ -97,12 +97,12 @@ Swift 前端本身仍要一个能 `-target arm64-apple-ios` 的 `swiftc`，参�
 
 ```
 [  ok  ] zip.structure      单一 bundle：AppCore.app
-[  ok  ] plist.required     com.tongriyaotxt.appcore 1.0.0(10)
+[  ok  ] plist.required     com.example.appcore 1.0.0(10)
 [  ok  ] icon.files         2/3 组图标存在
 [  ok  ] icon.1024          1024×1024 营销图标存在
 [  ok  ] macho.platform     AppCore: platform=iOS, arm64
-[  ok  ] sig.ok             AppCore: 签名有效（1 页，ident=com.tongriyaotxt.appcore，ad-hoc）
-[  ok  ] sig.ok             AppCore.dylib: 签名有效（17 页，ident=com.tongriyaotxt.appcore.appcore，ad-hoc）
+[  ok  ] sig.ok             AppCore: 签名有效（1 页，ident=com.example.appcore，ad-hoc）
+[  ok  ] sig.ok             AppCore.dylib: 签名有效（17 页，ident=com.example.appcore.appcore，ad-hoc）
 [  ok  ] dylib.info         AppCore.dylib: 5 个系统依赖，已检查
 9 通过, 0 警告, 0 失败
 ```

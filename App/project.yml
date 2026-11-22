@@ -1,7 +1,7 @@
 ﻿# XcodeGen 宸ョ▼鎻忚堪 鈥斺€?鍙弿杩?SwiftUI 澹筹紱鏍稿績閫昏緫鍦ㄤ粨搴撴牴鐨?SwiftPM 鍖呴噷銆?# 鐢熸垚锛歺codegen generate --spec project.yml
 name: AppCore
 options:
-  bundleIdPrefix: com.tongriyaotxt
+  bundleIdPrefix: com.example
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
@@ -37,7 +37,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.tongriyaotxt.appcore
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.appcore
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: NO
         GENERATE_INFOPLIST_FILE: NO

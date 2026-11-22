@@ -15,7 +15,7 @@
 param(
     [string]$Source = '.\samples\UIKitApp\AppCoreUI.m',
     [string]$Name = 'AppCore',
-    [string]$BundleId = 'com.tongriyaotxt.appcore',
+    [string]$BundleId = 'com.example.appcore',
     [string]$DistDir = '.\dist',
     [switch]$SkipBuild
 )

@@ -18,13 +18,13 @@
       1) 装了 LLVM（clang + ld64.lld）：-Source 指一个 .c/.m 文件，走真编译真链接
       2) 没装：用 tools\machogen.py 生成结构合法的 arm64 可执行体（默认）
 .EXAMPLE
-    .\Build-IosApp.ps1 -BundleId com.tongriyaotxt.helloios -Name HelloIOS -Version 1.0.0 -Build 3
+    .\Build-IosApp.ps1 -BundleId com.example.helloios -Name HelloIOS -Version 1.0.0 -Build 3
 .EXAMPLE
     .\Build-IosApp.ps1 -BundleId com.a.b -P12 .\secrets\dist.p12 -Password $env:P12_PASSWORD -TeamId ABCDE12345 -Entitlements .\ent.plist
 #>
 [CmdletBinding()]
 param(
-    [string]$BundleId = 'com.tongriyaotxt.helloios',
+    [string]$BundleId = 'com.example.helloios',
     [string]$Name = 'HelloIOS',
     [string]$Version = '1.0.0',
     [string]$Build = '1',

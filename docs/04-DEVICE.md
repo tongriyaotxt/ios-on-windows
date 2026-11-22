@@ -68,23 +68,23 @@ pymobiledevice3 developer dvt screenshot .\build\shot.png
 ### OTA 直装（本仓库已实现）
 
 ```powershell
-.\scripts\ios.ps1 ota -Ipa .\build\AppCore.ipa -Host 192.168.2.2 -Port 8443
+.\scripts\ios.ps1 ota -Ipa .\build\AppCore.ipa -Host 192.168.1.10 -Port 8443
 ```
 
 生成 `build\ota\{manifest.plist, install.html, *.ipa}`。然后：
 
 ```powershell
 # 自签证书（iOS 只收 https）
-openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 -subj "/CN=192.168.2.2"
+openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 -subj "/CN=192.168.1.10"
 
 # 起 HTTPS 服务（python 自带，无需装 nginx）
 python -c "import http.server,ssl;s=http.server.HTTPServer(('0.0.0.0',8443),http.server.SimpleHTTPRequestHandler);c=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER);c.load_cert_chain('cert.pem','key.pem');s.socket=c.wrap_socket(s.socket,server_side=True);s.serve_forever()"
 ```
 
-iPhone Safari 打开 `https://192.168.2.2:8443/install.html` → 点「安装」。
+iPhone Safari 打开 `https://192.168.1.10:8443/install.html` → 点「安装」。
 自签证书需要先在 iOS「设置 → 通用 → 关于本机 → 证书信任设置」里信任（或用真证书/内网 CA）。
 
-> 关键前提：**IPA 必须是 ad-hoc 签名**，且 `com.tongriyaotxt.appcore` 对应 profile 里包含这台设备的 UDID。
+> 关键前提：**IPA 必须是 ad-hoc 签名**，且 `com.example.appcore` 对应 profile 里包含这台设备的 UDID。
 > App Store 签名的 IPA 无法 OTA 安装。
 
 ---

@@ -114,7 +114,7 @@ zip 成 Payload/App.app                                       →  .ipa
 ### B.4 如果你想亲手摸一下边界（最小可跑实验）
 
 ```powershell
-# 1) 装 Swift for Windows（download.swift.org 可达，见 ENV-REPORT 网络实测）
+# 1) 装 Swift for Windows（download.swift.org 可达，见 网络实测（见 docs/12））
 winget install Swift.Toolchain
 
 # 2) 从 Xcode.xip 抽出 iOS SDK（只在本机验证用）

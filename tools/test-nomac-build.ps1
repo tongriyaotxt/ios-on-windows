@@ -13,7 +13,7 @@
 [CmdletBinding()]
 param(
     [int]$MockPort = 8790,
-    [string]$BundleId = 'com.tongriyaotxt.helloios'
+    [string]$BundleId = 'com.example.helloios'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -97,7 +97,7 @@ if ($cmsOut -match 'cms: present' -and $cmsOut -match 'RESULT: VALID') { Ok 'CMS
 # ---------------------------------------------------------------- 3. OTA
 Step '5/6 OTA 清单'
 & powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\make-ota-manifest.ps1 `
-    -Ipa .\build\xc\HelloIOS.ipa -BaseUrl 'https://192.168.2.2:8443' -OutDir .\build\xc\ota 2>&1 | Out-Null
+    -Ipa .\build\xc\HelloIOS.ipa -BaseUrl 'https://192.168.1.10:8443' -OutDir .\build\xc\ota 2>&1 | Out-Null
 if (Test-Path .\build\xc\ota\manifest.plist) {
     $mf = Get-Content .\build\xc\ota\manifest.plist -Raw
     if ($mf -match [regex]::Escape($BundleId) -and $mf -match 'software-package') { Ok 'manifest.plist 含 bundle id 与包地址' }

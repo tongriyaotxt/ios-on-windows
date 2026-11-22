@@ -27,7 +27,7 @@
 ```
 [ ok  ] 描述文件：AppCore AdHoc  team=ABCDE12345  设备=1  ad-hoc/development
 [ ok  ] 有效期还剩 299 天（2027-09-18）
-[ ok  ] application-identifier 匹配：ABCDE12345.com.tongriyaotxt.appcore
+[ ok  ] application-identifier 匹配：ABCDE12345.com.example.appcore
 [ ok  ] UDID 已登记：00008030-001A2C3E0E91802E
 [ ok  ] 证书匹配描述文件（CN=Apple Distribution: Test (ABCDE12345)）
 [ ok  ] 签名 entitlements 是描述文件的子集（4 项）
@@ -81,7 +81,7 @@
 
 # 2) 校验（不一致会明确告诉你哪一项）
 .\scripts\check-provisioning.py --profile AppCore.mobileprovision `
-    --bundle-id com.tongriyaotxt.appcore --p12 dist.p12 --p12-password *** `
+    --bundle-id com.example.appcore --p12 dist.p12 --p12-password *** `
     --udid <你的 UDID>
 
 # 3) 一条命令发布

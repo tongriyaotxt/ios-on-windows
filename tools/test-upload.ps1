@@ -2,7 +2,7 @@
 .SYNOPSIS
     端到端验证 asc-upload.ps1：造一个假 .ipa、造一把临时 .p8、起本地 mock ASC、跑完整上传、核对结果。
 .DESCRIPTION
-    不联网、不碰 Apple、不消耗任何真实凭证。只在 F:\shit\ios-app 下留一个 build\ 目录当产物。
+    不联网、不碰 Apple、不消耗任何真实凭证。只在 <repo> 下留一个 build\ 目录当产物。
 #>
 [CmdletBinding()]
 param(

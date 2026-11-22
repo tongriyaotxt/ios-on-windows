@@ -21,7 +21,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$Source,
-    [string]$BundleId = 'com.tongriyaotxt.appcore',
+    [string]$BundleId = 'com.example.appcore',
     [string]$Name = 'AppCore',
     [string]$Version = '1.0.0',
     [string]$Build = '1',

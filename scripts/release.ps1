@@ -54,7 +54,7 @@ if (-not $Version -or -not $Build) {
     if (-not $Version) { $Version = $state.MARKETING_VERSION }
     if (-not $Build) { $Build = $state.BUILD_NUMBER }
 }
-if (-not $BundleId) { $BundleId = 'com.tongriyaotxt.appcore' }
+if (-not $BundleId) { $BundleId = 'com.example.appcore' }
 
 if ($AutoUdid -and -not $Udid) {
     Write-Host '==> 自动读取已连接设备的 UDID' -ForegroundColor Cyan
