@@ -1,6 +1,6 @@
 # iOS on Windows — compile, sign, package, verify. No Mac.
 
-[中文说明](README.zh-CN.md) · [docs](docs/README.md) · [changelog](CHANGELOG.md)
+[中文说明](README.zh-CN.md) · [docs](docs/README.md) · [contributing](CONTRIBUTING.md) · [changelog](CHANGELOG.md)
 
 A toolkit that builds a **real UIKit iOS app entirely on Windows** — no Mac, no Xcode, no macOS VM,
 no cloud Mac. Then signs it, packages a valid `.ipa`, verifies it, and (optionally) uploads it to
@@ -129,6 +129,21 @@ deterministic       two builds → identical SHA256
 
 `docs/11` shows the execution trace the emulator produces, including the exact `d0–d3` values that
 prove `CGRect` travels correctly through variadic `objc_msgSend`.
+
+## Gaps — contributions welcome
+
+[`CONTRIBUTING.md`](CONTRIBUTING.md) lists 15 concrete gaps with acceptance criteria. The short list:
+
+| Effort | Gap | Why it matters |
+|---|---|---|
+| **device report** | Install on a phone, report the result | turns our two biggest unknowns (constructor-time `UIApplicationMain`, 4 KB signature pages) into facts — see [`docs/17`](docs/17-CRITIQUE.md) |
+| good first issue | merge the 5 duplicated Mach-O parsers into `tools/macho.py` | "audit says OK but reality differs" is the worst class of bug |
+| good first issue | `--json` output for `audit-device.py` / `verify-ipa.py` | lets CI assert on results |
+| help wanted | `Assets.car` writer | removes the last "you cannot submit" caveat |
+| help wanted | nested-code sealing, deterministic CMS time | `codesign` parity |
+| research | SwiftUI without Xcode | needs a Swift frontend that targets iOS |
+
+Self-critique and risk matrix: [`docs/17-CRITIQUE.md`](docs/17-CRITIQUE.md).
 
 ## Limitations, honestly
 

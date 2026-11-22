@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- `CONTRIBUTING.md`：15 个可认领缺口（含验收标准）+ 设备报告模板
+- `docs/17-CRITIQUE.md`：自审（结构性问题 / 正确性风险 / 安全 / 合规 / 风险矩阵）
+
+### Fixed
+
+- `xip-extract.py` 的 cpio 路径穿越（`../../x` 可写出输出目录），补正反用例
+
 ## [0.2.0] · 2026-11-22
 
 ### Added

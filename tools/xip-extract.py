@@ -114,7 +114,12 @@ def cpio_parse(data: bytes, out_dir: str, only: str = None):
         if only and only not in name:
             continue
 
-        target = os.path.join(out_dir, name.replace("/", os.sep))
+        # 防路径穿越：cpio 里的名字来自不可信来源（xip 可以是别人给的）
+        rel = os.path.normpath(name.replace("\\", "/")).replace(os.sep, "/")
+        if rel.startswith("..") or rel.startswith("/") or ":" in rel.split("/")[0]:
+            print(f"  skip (path traversal): {name}", file=sys.stderr)
+            continue
+        target = os.path.join(out_dir, rel.replace("/", os.sep))
         if name.endswith("/"):
             os.makedirs(target, exist_ok=True)
             continue

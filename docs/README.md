@@ -21,6 +21,7 @@
 | 14 | [RELEASE-PATH.md](14-RELEASE-PATH.md) | 剩下那一步：描述文件校验 + 一键发布（含等价凭证实测） |
 | 15 | [SIGNING-CHAIN-AND-DEVICE.md](15-SIGNING-CHAIN-AND-DEVICE.md) | 私钥从哪来、手机能给什么（UDID）、免费账号怎么自动出证书 |
 | 16 | [INSTALL-ON-DEVICE.md](16-INSTALL-ON-DEVICE.md) | **只要在手机上跑**：TrollStore / 免费 7 天 / 付费三条路 |
+| 17 | [CRITIQUE.md](17-CRITIQUE.md) | 自审：结构性问题、正确性风险、安全、合规、风险矩阵 |
 
 ## 按问题找文档
 
