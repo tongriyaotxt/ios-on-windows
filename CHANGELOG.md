@@ -17,7 +17,8 @@
 - **分发**：`scripts/make-ota-manifest.ps1`（itms-services）、`scripts/ios.ps1 install`（pymobiledevice3/ideviceinstaller）
 - **验证**：`tools/verify-ipa.py`（上架前 9 项校验）、`tools/audit-device.py`（真机启动审计）、`tools/sim-ios.py`（dyld + Unicorn ARM64 模拟执行）、`tools/xip-extract.py`（xar→pbzx→cpio）
 - **工程**：`scripts/install.ps1`、`scripts/lint.ps1`、`py_tests/`（pytest）、`.github/workflows/ci.yml`、`requirements*.txt`、`PSScriptAnalyzerSettings.psd1`、`pyproject.toml`
-- **文档**：`docs/00`–`docs/12`（架构、签名、上传、设备、无 Mac 极限、零 Mac 全流程、原生工具链、缺口关闭、风险审计、无真机验证、工程约定）
+- **调研**：`docs/13-PRIOR-ART.md`（osxcross / Theos / iosc / zsign / rcodesign / zig-ios-example 对照）
+- **文档**：`docs/00`–`docs/13`（架构、签名、上传、设备、无 Mac 极限、零 Mac 全流程、原生工具链、缺口关闭、风险审计、无真机验证、工程约定）
 
 ### Known limitations
 

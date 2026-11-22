@@ -17,6 +17,7 @@
 | 10 | [DEVICE-FAILURE-AUDIT.md](10-DEVICE-FAILURE-AUDIT.md) | 真机启动风险清单（2 FATAL/8 HIGH → 只剩凭证类） |
 | 11 | [NO-DEVICE-VERIFICATION.md](11-NO-DEVICE-VERIFICATION.md) | 不用真机：自写 dyld + ARM64 模拟器跑出证据 |
 | 12 | [CONVENTIONS.md](12-CONVENTIONS.md) | 工程约定：退出码、命名、编码、改动流程、已知约束 |
+| 13 | [PRIOR-ART.md](13-PRIOR-ART.md) | 同类项目调研：osxcross / Theos / iosc / zsign / rcodesign 等 |
 
 ## 按问题找文档
 
