@@ -1,5 +1,7 @@
 # iOS on Windows — compile, sign, package, verify. No Mac.
 
+[![ci](https://github.com/tongriyaotxt/ios-on-windows/actions/workflows/ci.yml/badge.svg)](https://github.com/tongriyaotxt/ios-on-windows/actions/workflows/ci.yml)
+
 [中文说明](README.zh-CN.md) · [docs](docs/README.md) · [contributing](CONTRIBUTING.md) · [changelog](CHANGELOG.md)
 
 A toolkit that builds a **real UIKit iOS app entirely on Windows** — no Mac, no Xcode, no macOS VM,

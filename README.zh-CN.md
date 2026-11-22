@@ -1,5 +1,7 @@
 # iOS on Windows · 零 Mac 设备
 
+[![ci](https://github.com/tongriyaotxt/ios-on-windows/actions/workflows/ci.yml/badge.svg)](https://github.com/tongriyaotxt/ios-on-windows/actions/workflows/ci.yml)
+
 [English](README.md) · [docs](docs/README.md) · [changelog](CHANGELOG.md)
 
 
