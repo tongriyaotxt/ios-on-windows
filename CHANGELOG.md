@@ -4,6 +4,19 @@
 
 ## [Unreleased]
 
+## [0.2.0] · 2026-11-22
+
+### Added
+
+- `tools/check-provisioning.py`：描述文件 ↔ 证书 ↔ bundle id ↔ entitlements ↔ UDID 五方一致性校验，支持 `--emit-entitlements`
+- `scripts/release.ps1`：一条命令从源码到 TestFlight（校验 → 构建 → 审计 → 上传），`-DryRun` 无需凭证
+- `py_tests/test_provisioning.py`：5 个正反用例（自造 CMS 描述文件，不需要 Apple 账号）
+
+### Changed
+
+- 真证书路径实测：审计从 `FATAL=1 / HIGH=2` 变为 `FATAL=0 / HIGH=0`（用等价测试凭证）
+- `audit-device.py` 退出码改为 0/1/2 约定
+
 ## [0.1.0] · 2026-11-22
 
 第一个可用版本：Windows 上完成 iOS App 的编译、签名、打包、上传、分发、验证，全程不需要 macOS 设备。
