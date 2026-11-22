@@ -4,6 +4,8 @@
 
 [中文说明](README.zh-CN.md) · [docs](docs/README.md) · [contributing](CONTRIBUTING.md) · [changelog](CHANGELOG.md)
 
+▶ 92-second walkthrough (vertical, Chinese): [`docs/media/ios-on-windows-promo-1080x1920.mp4`](docs/media/ios-on-windows-promo-1080x1920.mp4) — narrated for Douyin, 2026-11-22.
+
 A toolkit that builds a **real UIKit iOS app entirely on Windows** — no Mac, no Xcode, no macOS VM,
 no cloud Mac. Then signs it, packages a valid `.ipa`, verifies it, and (optionally) uploads it to
 App Store Connect over the REST API.
